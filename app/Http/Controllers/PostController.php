@@ -34,7 +34,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate request data
+        $validated = $request->validate([
+            'content' => ['required', 'string', 'min:10', 'max:255'],
+        ]);
+
+        // create new post
+        Post::query()->create([
+            'user_id' => auth()->id(),
+            'content' => $validated['content'],
+        ]);
     }
 
     /**

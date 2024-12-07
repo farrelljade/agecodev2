@@ -1,10 +1,13 @@
 <script setup>
 import {Link, usePage, useForm} from '@inertiajs/vue3';
 import {route} from 'ziggy-js';
+import {ref} from "vue";
+import NewPostDialog from '@/Pages/Posts/Components/NewPostDialog.vue';
 
 const page = usePage();
 const auth = page.props.auth;
 const logoutForm = useForm({});
+const openDialog = ref(false);
 
 function handleLogout() {
     logoutForm.post(route('logout'), {
@@ -12,6 +15,10 @@ function handleLogout() {
             window.location = route('login');
         },
     });
+}
+
+function createPost() {
+    openDialog.value = true;
 }
 </script>
 
@@ -55,7 +62,16 @@ function handleLogout() {
                 ></v-list-item>
             </Link>
 
-            <!-- Logout Button at the Bottom -->
+            <v-btn
+                block
+                @click="createPost"
+                color="info"
+                prepend-icon="mdi-pencil-outline"
+                style="color: rgba(255, 255, 255, 0.8);"
+            >
+                New Post
+            </v-btn>
+
             <v-btn
                 block
                 color="error"
@@ -85,5 +101,7 @@ function handleLogout() {
         >
             <slot />
         </v-main>
+
+        <NewPostDialog v-model="openDialog" />
     </v-layout>
 </template>

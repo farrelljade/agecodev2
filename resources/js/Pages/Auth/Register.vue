@@ -8,6 +8,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     name: '',
+    handle: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -39,6 +40,21 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+
+            <div>
+                <InputLabel for="handle" value="Handle" />
+
+                <TextInput
+                    id="handle"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.handle"
+                    required
+                    autocomplete="handle"
+                />
+
+                <InputError class="mt-2" :message="form.errors.handle" />
             </div>
 
             <div class="mt-4">
