@@ -14,7 +14,7 @@ import { Link } from '@inertiajs/vue3';
             class="d-flex align-center justify-center"
             width="250"
         >
-        <Link href="/">
+        <Link :href="route('posts.index')">
             <v-list-item class="mt-6" prepend-icon="mdi-home" link title="Home"></v-list-item>
         </Link>
         <Link href="#">
