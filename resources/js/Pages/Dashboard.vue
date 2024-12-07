@@ -7,24 +7,37 @@ import { Head } from '@inertiajs/vue3';
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <template #header>
-            <h2
-                class="text-xl font-semibold leading-tight text-gray-800"
-            >
-                Dashboard
-            </h2>
-        </template>
+        <v-container>
+            <v-row justify="center">
+                <v-col cols="12" sm="8" md="6">
+<!--                    <v-card v-for="post in posts" :key="post.id" class="mb-3">-->
+                    <v-card class="mb-3">
+                        <v-card-title class="d-flex align-center">
+                            <v-avatar size="40" class="mr-3">
+<!--                                <v-img :src="post.user.avatar" alt="User avatar"/>-->
+                            </v-avatar>
+                            <div>
+<!--                                <div>{{ post.user.name }} @{{ post.user.handle }}</div>-->
+                                <div>Mikel Farrell @farrelljade</div>
+<!--                                <small class="text-subtitle-2">{{ post.time }}</small>-->
+                                <small class="text-subtitle-2">11:42</small>
+                            </div>
+                        </v-card-title>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
-                >
-                    <div class="p-6 text-gray-900">
-                        You're logged in!
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <v-card-text>
+<!--                            {{ post.content }}-->
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec pur
+                        </v-card-text>
+
+                        <v-card-actions>
+<!--                            <v-btn icon @click="likePost(post)"><v-icon>mdi-heart-outline</v-icon></v-btn>-->
+<!--                            <v-btn icon @click="retweetPost(post)"><v-icon>mdi-repeat</v-icon></v-btn>-->
+<!--                            <v-btn icon @click="replyToPost(post)"><v-icon>mdi-reply</v-icon></v-btn>-->
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+
     </AuthenticatedLayout>
 </template>
