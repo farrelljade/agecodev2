@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('posts', PostController::class);
     Route::resource('users', UserController::class);
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 });
 
