@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { format } from 'date-fns';
+import {route} from "ziggy-js";
 
 defineProps({
     posts: {
@@ -12,6 +13,22 @@ defineProps({
 
 function formattedDate(date) {
     return format(new Date(date), 'dd MMM yyyy, HH:mm');
+}
+
+function likePost(post) {
+    const isLiked = post.isLiked;
+
+    const routeName = isLiked ? 'posts.unlike' : 'posts.like';
+    const method = isLiked ? axios.delete : axios.post;
+
+    method(route(routeName, { post: post.id }))
+        .then(() => {
+            post.isLiked = !isLiked;
+            post.likesCount = isLiked ? post.likesCount - 1 : post.likesCount + 1;
+        })
+        .catch((error) => {
+            console.error('Error toggling like:', error.response.data);
+        });
 }
 </script>
 
@@ -50,7 +67,14 @@ function formattedDate(date) {
                         </v-card-text>
 
                         <v-card-actions>
-                            <v-btn style="text-decoration: none; color: rgba(255,255,255,0.4);" @click="likePost(post)"><v-icon>mdi-heart-outline</v-icon></v-btn>
+                            <v-btn
+                                style="text-decoration: none; color: rgba(255,255,255,0.4);"
+                                @click="likePost(post)"
+                            >
+                                <v-icon :color="post.isLiked ? 'red' : ''">
+                                    {{ post.isLiked ? 'mdi-heart' : 'mdi-heart-outline' }}
+                                </v-icon>
+                            </v-btn>
                             <v-btn style="text-decoration: none; color: rgba(255,255,255,0.4);" @click="retweetPost(post)"><v-icon>mdi-repeat</v-icon></v-btn>
                             <v-btn style="text-decoration: none; color: rgba(255,255,255,0.4);" @click="replyToPost(post)"><v-icon>mdi-reply</v-icon></v-btn>
                         </v-card-actions>

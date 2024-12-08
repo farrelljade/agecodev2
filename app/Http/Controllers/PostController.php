@@ -14,9 +14,14 @@ class PostController extends Controller
     public function index()
     {
         $data['posts'] = Post::query()
+            ->withCount('likes')
             ->with('user')
             ->latest()
-            ->get();
+            ->get()
+            ->map(function ($post) {
+                $post->isLiked = $post->likes->contains('user_id', auth()->id());
+                return $post;
+    });
 
         return Inertia::render('Posts/PostsPage', $data);
     }
